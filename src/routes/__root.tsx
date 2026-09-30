@@ -70,7 +70,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "خزانة — منصة ملفات المعلمات" },
+      { title: "منصة مدرسة سبح المعاشي (1-12)" },
       {
         name: "description",
         content: "منصة خاصة لحفظ ومشاركة مشاريع وأوراق العمل المدرسية لكل معلمة على حدة.",

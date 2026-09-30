@@ -14,12 +14,16 @@ export function AppHeader() {
     <header className="sticky top-0 z-30 bg-background/95 backdrop-blur border-b-2 border-foreground/15">
       <div className="mx-auto max-w-[1200px] px-5 h-16 flex items-center gap-6">
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
-          <span className="w-8 h-8 rounded-[10px] bg-amber border border-border grid place-items-center font-display font-black text-base">
-            خ
+          <span className="w-9 h-9 rounded-[10px] bg-amber text-paper grid place-items-center font-display font-black text-base">
+            س
           </span>
-          <span className="font-display font-black text-xl tracking-tight">خزانة</span>
-          <span className="hidden sm:inline text-[11px] font-medium bg-ink text-paper rounded-full px-2 py-0.5">
-            خاص
+          <span className="leading-tight">
+            <span className="block font-display font-black text-base sm:text-lg">
+              مدرسة سبح المعاشي (1-12)
+            </span>
+            <span className="block text-[11px] text-muted-foreground">
+              مديرة المدرسة: الأستاذة موزة بدر المعني
+            </span>
           </span>
         </Link>
 

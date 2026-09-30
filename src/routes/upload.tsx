@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   ALLOWED_EXTENSIONS,
   CATEGORIES,
@@ -16,12 +17,12 @@ import {
 export const Route = createFileRoute("/upload")({
   head: () => ({
     meta: [
-      { title: "رفع ملف — خزانة المعلمات" },
+      { title: "رفع ملف — منصة مدرسة سبح المعاشي" },
       {
         name: "description",
         content: "ارفعي أوراق العمل والمشاريع بصيغ PDF وDOCX وPPTX والصور حتى ١٥ ميجابايت.",
       },
-      { property: "og:title", content: "رفع ملف — خزانة المعلمات" },
+      { property: "og:title", content: "رفع ملف — منصة مدرسة سبح المعاشي" },
       {
         property: "og:description",
         content: "ارفعي أوراق العمل والمشاريع بصيغ PDF وDOCX وPPTX والصور حتى ١٥ ميجابايت.",
@@ -273,6 +274,7 @@ function UploadPage() {
           </aside>
         </form>
       </section>
+      <SiteFooter />
     </div>
   );
 }

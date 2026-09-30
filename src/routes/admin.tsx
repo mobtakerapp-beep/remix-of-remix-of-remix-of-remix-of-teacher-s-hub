@@ -5,18 +5,19 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { FileCard, type FileRow } from "@/components/FileCard";
 import { claimAdminCode } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "لوحة المدير — خزانة المعلمات" },
+      { title: "لوحة المدير — منصة مدرسة سبح المعاشي" },
       {
         name: "description",
         content: "دخول بكود المدير لعرض جميع المعلمات وملفاتهن في مكان واحد.",
       },
-      { property: "og:title", content: "لوحة المدير — خزانة المعلمات" },
+      { property: "og:title", content: "لوحة المدير — منصة مدرسة سبح المعاشي" },
       {
         property: "og:description",
         content: "دخول بكود المدير لعرض جميع المعلمات وملفاتهن في مكان واحد.",
@@ -128,6 +129,7 @@ function AdminPage() {
         <p className="mx-auto max-w-[1200px] px-5 py-9 text-sm text-muted-foreground">
           جارٍ التحميل…
         </p>
+        <SiteFooter />
       </div>
     );
   }
@@ -159,6 +161,7 @@ function AdminPage() {
             </button>
           </form>
         </section>
+        <SiteFooter />
       </div>
     );
   }
@@ -235,6 +238,7 @@ function AdminPage() {
           ))}
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }

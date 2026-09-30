@@ -5,13 +5,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { VisionMission } from "@/components/VisionMission";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "تسجيل الدخول — خزانة المعلمات" },
+      { title: "تسجيل الدخول — منصة مدرسة سبح المعاشي" },
       { name: "description", content: "سجّلي الدخول للوصول إلى ملفاتك الخاصة على منصة خزانة." },
-      { property: "og:title", content: "تسجيل الدخول — خزانة المعلمات" },
+      { property: "og:title", content: "تسجيل الدخول — منصة مدرسة سبح المعاشي" },
       {
         property: "og:description",
         content: "سجّلي الدخول للوصول إلى ملفاتك الخاصة على منصة خزانة.",
@@ -141,6 +142,7 @@ function AuthPage() {
           {mode === "in" ? "ليس لديك حساب؟ أنشئي حسابًا" : "لديك حساب؟ سجّلي الدخول"}
         </button>
       </main>
+      <SiteFooter />
     </div>
   );
 }
