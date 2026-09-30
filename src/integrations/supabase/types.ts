@@ -77,6 +77,30 @@ export type Database = {
         }
         Relationships: []
       }
+      thanks: {
+        Row: {
+          admin_id: string
+          created_at: string
+          id: string
+          message: string
+          teacher_id: string
+        }
+        Insert: {
+          admin_id: string
+          created_at?: string
+          id?: string
+          message: string
+          teacher_id: string
+        }
+        Update: {
+          admin_id?: string
+          created_at?: string
+          id?: string
+          message?: string
+          teacher_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
