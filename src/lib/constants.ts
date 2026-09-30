@@ -1,0 +1,53 @@
+export const MAX_FILE_BYTES = 15 * 1024 * 1024;
+
+export const ALLOWED_EXTENSIONS = ["pdf", "docx", "pptx", "png", "jpg", "jpeg"] as const;
+
+export const SUBJECTS = [
+  "الرياضيات",
+  "اللغة العربية",
+  "العلوم",
+  "اللغة الإنجليزية",
+  "الدراسات الاجتماعية",
+  "التربية الإسلامية",
+  "الحاسب الآلي",
+  "الفنون",
+] as const;
+
+export const GRADES = [
+  "الصف الأول",
+  "الصف الثاني",
+  "الصف الثالث",
+  "الصف الرابع",
+  "الصف الخامس",
+  "الصف السادس",
+  "الأول متوسط",
+  "الثاني متوسط",
+  "الثالث متوسط",
+] as const;
+
+export const EXT_COLOR: Record<string, string> = {
+  pdf: "bg-coral",
+  docx: "bg-blue",
+  pptx: "bg-amber",
+  png: "bg-grape",
+  jpg: "bg-teal",
+  jpeg: "bg-teal",
+  link: "bg-ink",
+};
+
+export const EXT_SHADOW: Record<string, string> = {
+  pdf: "pop-coral",
+  docx: "pop-blue",
+  pptx: "pop-amber",
+  png: "pop-ink",
+  jpg: "pop-teal",
+  jpeg: "pop-teal",
+  link: "pop-ink",
+};
+
+export function formatSize(bytes: number | null | undefined): string {
+  if (!bytes) return "—";
+  const mb = bytes / (1024 * 1024);
+  if (mb < 1) return `${Math.round(bytes / 1024)} ك.ب`;
+  return `${mb.toFixed(1)} م.ب`;
+}
