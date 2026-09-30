@@ -81,11 +81,21 @@ function AuthPage() {
   return (
     <div className="min-h-screen">
       <AppHeader />
+      <section className="mx-auto max-w-[1200px] px-5 pt-14 pb-4 text-center rise">
+        <h1 className="font-display font-black text-5xl sm:text-6xl tracking-tight">
+          كل عمل... له أثر
+        </h1>
+        <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-loose">
+          منصة مدرسية توثّق أعمالك، وتنظم إنجازاتك،
+          <br />
+          وتجمع جهودك في مكان واحد.
+        </p>
+      </section>
       <VisionMission />
       <main className="mx-auto max-w-[520px] px-5 py-12">
-        <h1 className="font-display font-black text-4xl tracking-tight mb-2 rise">
+        <h2 className="font-display font-black text-3xl tracking-tight mb-2">
           {mode === "in" ? "أهلًا بعودتك" : "إنشاء حساب معلمة"}
-        </h1>
+        </h2>
         <p className="text-sm text-muted-foreground mb-6">
           ملفاتك خاصة بك وحدك — لا تراها أي معلمة أخرى.
         </p>
