@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       files: {
         Row: {
+          category: string
           created_at: string
           description: string
           file_ext: string | null
@@ -29,6 +30,7 @@ export type Database = {
           video_url: string | null
         }
         Insert: {
+          category?: string
           created_at?: string
           description?: string
           file_ext?: string | null
@@ -42,6 +44,7 @@ export type Database = {
           video_url?: string | null
         }
         Update: {
+          category?: string
           created_at?: string
           description?: string
           file_ext?: string | null
