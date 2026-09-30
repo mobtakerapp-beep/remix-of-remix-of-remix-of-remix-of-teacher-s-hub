@@ -43,6 +43,7 @@ export function AppHeader() {
         ) : null}
 
         <div className="mr-auto flex items-center gap-3 shrink-0">
+          <InstallAppButton />
           {user ? (
             <>
               <div className="hidden sm:flex items-center gap-2">
