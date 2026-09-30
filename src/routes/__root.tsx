@@ -115,12 +115,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      {/* Blurred fill so no screen size leaves empty bars */}
       <div
         aria-hidden
-        className="fixed inset-0 -z-10 bg-cover bg-center"
-        style={{ backgroundImage: `url(${schoolBg.url})` }}
+        className="fixed inset-0 -z-20 bg-cover bg-center"
+        style={{ backgroundImage: `url(${schoolBg.url})`, filter: "blur(28px)", transform: "scale(1.15)" }}
       />
-      <div aria-hidden className="fixed inset-0 -z-10 bg-background/75" />
+      {/* The picture itself, always fully visible, never cropped */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-no-repeat bg-center"
+        style={{ backgroundImage: `url(${schoolBg.url})`, backgroundSize: "contain" }}
+      />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-background/70" />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster position="top-center" />

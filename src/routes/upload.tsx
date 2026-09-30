@@ -11,6 +11,7 @@ import {
   GRADES,
   MAX_FILE_BYTES,
   SUBJECTS,
+  categoryEmoji,
   formatSize,
 } from "@/lib/constants";
 
@@ -203,7 +204,7 @@ function UploadPage() {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 {CATEGORIES.map((c) => (
-                  <option key={c}>{c}</option>
+                  <option key={c}>{`${categoryEmoji(c)} ${c}`}</option>
                 ))}
               </select>
 

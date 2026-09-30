@@ -1,4 +1,4 @@
-import { EXT_COLOR, EXT_SHADOW, formatSize } from "@/lib/constants";
+import { EXT_COLOR, EXT_SHADOW, categoryEmoji, formatSize } from "@/lib/constants";
 
 export type FileRow = {
   id: string;
@@ -47,7 +47,7 @@ export function FileCard({
       <div className="flex items-center gap-2 text-[11px] flex-wrap">
         {file.category ? (
           <span className="bg-accent/15 text-accent-foreground border border-accent/40 rounded-full px-2 py-0.5 font-semibold">
-            {file.category}
+            {categoryEmoji(file.category)} {file.category}
           </span>
         ) : null}
         {file.subject ? (
