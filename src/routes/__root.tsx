@@ -114,6 +114,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10 bg-cover bg-center"
+        style={{ backgroundImage: `url(${schoolBg.url})` }}
+      />
+      <div aria-hidden className="fixed inset-0 -z-10 bg-background/75" />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster position="top-center" />
