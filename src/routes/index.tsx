@@ -3,20 +3,22 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { ThanksList } from "@/components/ThanksList";
 import { VisionMission } from "@/components/VisionMission";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { FileCard, type FileRow } from "@/components/FileCard";
 import { EXT_COLOR } from "@/lib/constants";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "مكتبتي — خزانة المعلمات" },
+      { title: "مكتبتي — منصة مدرسة سبح المعاشي" },
       {
         name: "description",
         content: "كل مشاريعك وأوراق العمل في مكان واحد، خاصة بك وحدك، مع بحث وفلترة بالمادة والصف.",
       },
-      { property: "og:title", content: "مكتبتي — خزانة المعلمات" },
+      { property: "og:title", content: "مكتبتي — منصة مدرسة سبح المعاشي" },
       {
         property: "og:description",
         content: "كل مشاريعك وأوراق العمل في مكان واحد، خاصة بك وحدك.",
@@ -120,6 +122,7 @@ function LibraryPage() {
     <div className="min-h-screen">
       <AppHeader />
       <VisionMission />
+      {user ? <ThanksList teacherId={user.id} /> : null}
       <section className="mx-auto max-w-[1200px] px-5 py-9">
         <div className="flex flex-wrap items-end gap-4 mb-7 rise">
           <h1 className="font-display font-black text-4xl tracking-tight">مكتبتي</h1>
@@ -228,6 +231,7 @@ function LibraryPage() {
           </div>
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }

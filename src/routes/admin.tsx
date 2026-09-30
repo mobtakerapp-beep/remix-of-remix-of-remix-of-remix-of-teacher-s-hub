@@ -5,18 +5,19 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { FileCard, type FileRow } from "@/components/FileCard";
 import { claimAdminCode } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "لوحة المدير — خزانة المعلمات" },
+      { title: "لوحة المدير — منصة مدرسة سبح المعاشي" },
       {
         name: "description",
         content: "دخول بكود المدير لعرض جميع المعلمات وملفاتهن في مكان واحد.",
       },
-      { property: "og:title", content: "لوحة المدير — خزانة المعلمات" },
+      { property: "og:title", content: "لوحة المدير — منصة مدرسة سبح المعاشي" },
       {
         property: "og:description",
         content: "دخول بكود المدير لعرض جميع المعلمات وملفاتهن في مكان واحد.",
@@ -38,6 +39,7 @@ function AdminPage() {
   const [teachers, setTeachers] = useState<TeacherRow[]>([]);
   const [selected, setSelected] = useState<TeacherRow | null>(null);
   const [files, setFiles] = useState<FileRow[]>([]);
+  const [thanks, setThanks] = useState("");
 
   useEffect(() => {
     if (!loading && !user) void navigate({ to: "/auth" });
@@ -128,6 +130,7 @@ function AdminPage() {
         <p className="mx-auto max-w-[1200px] px-5 py-9 text-sm text-muted-foreground">
           جارٍ التحميل…
         </p>
+        <SiteFooter />
       </div>
     );
   }
@@ -159,6 +162,7 @@ function AdminPage() {
             </button>
           </form>
         </section>
+        <SiteFooter />
       </div>
     );
   }
@@ -208,6 +212,37 @@ function AdminPage() {
               </span>
               <p className="font-bold">ملفات {selected?.full_name ?? "—"}</p>
             </div>
+            {selected ? (
+              <form
+                className="mb-4 space-y-2"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const msg = thanks.trim();
+                  if (!msg || !user) return;
+                  const { error } = await supabase
+                    .from("thanks")
+                    .insert({ teacher_id: selected.id, admin_id: user.id, message: msg.slice(0, 500) });
+                  if (error) {
+                    toast.error("تعذّر إرسال الشكر.");
+                    return;
+                  }
+                  setThanks("");
+                  toast.success(`تم إرسال الشكر إلى ${selected.full_name}`);
+                }}
+              >
+                <textarea
+                  className="w-full rounded-lg bg-paper text-ink text-sm p-2.5 outline-none"
+                  rows={2}
+                  maxLength={500}
+                  value={thanks}
+                  onChange={(e) => setThanks(e.target.value)}
+                  placeholder="اكتبي رسالة شكر للمعلمة…"
+                />
+                <button className="w-full bg-amber text-paper rounded-full py-2 text-sm font-bold">
+                  إرسال شكر 🌷
+                </button>
+              </form>
+            ) : null}
             <div className="space-y-2 text-xs">
               {files.length === 0 ? (
                 <p className="text-paper/60">لا توجد ملفات لهذه المعلمة.</p>
@@ -235,6 +270,7 @@ function AdminPage() {
           ))}
         </div>
       </section>
+      <SiteFooter />
     </div>
   );
 }
