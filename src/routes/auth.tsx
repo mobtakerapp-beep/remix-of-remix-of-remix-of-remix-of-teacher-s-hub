@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { VisionMission } from "@/components/VisionMission";
 import { AppHeader } from "@/components/AppHeader";
 
 export const Route = createFileRoute("/auth")({
@@ -74,11 +75,12 @@ function AuthPage() {
   }
 
   const inputClass =
-    "w-full bg-card border-2 border-ink rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
+    "w-full bg-card border border-border rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
 
   return (
     <div className="min-h-screen">
       <AppHeader />
+      <VisionMission />
       <main className="mx-auto max-w-[520px] px-5 py-12">
         <h1 className="font-display font-black text-4xl tracking-tight mb-2 rise">
           {mode === "in" ? "أهلًا بعودتك" : "إنشاء حساب معلمة"}
@@ -126,7 +128,7 @@ function AuthPage() {
           <button
             type="submit"
             disabled={busy}
-            className="w-full bg-ink text-paper rounded-full px-6 py-3 font-bold border-2 border-ink pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
+            className="w-full bg-ink text-paper rounded-full px-6 py-3 font-bold border border-border pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
           >
             {busy ? "لحظة..." : mode === "in" ? "دخول" : "إنشاء الحساب"}
           </button>

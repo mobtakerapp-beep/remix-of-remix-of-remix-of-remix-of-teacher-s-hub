@@ -5,6 +5,7 @@ export type FileRow = {
   title: string;
   description: string;
   subject: string;
+  category?: string;
   grade: string;
   file_path: string | null;
   file_ext: string | null;
@@ -31,7 +32,7 @@ export function FileCard({
     >
       <div className="flex items-center justify-between mb-3">
         <span
-          className={`text-[10px] font-bold text-paper ${badge} rounded-md px-2 py-0.5 border-2 border-ink`}
+          className={`text-[10px] font-bold text-paper ${badge} rounded-md px-2 py-0.5 border border-border`}
         >
           {file.video_url && !file.file_path ? "رابط" : ext.toUpperCase()}
         </span>
@@ -44,6 +45,11 @@ export function FileCard({
         </p>
       ) : null}
       <div className="flex items-center gap-2 text-[11px] flex-wrap">
+        {file.category ? (
+          <span className="bg-accent/15 text-accent-foreground border border-accent/40 rounded-full px-2 py-0.5 font-semibold">
+            {file.category}
+          </span>
+        ) : null}
         {file.subject ? (
           <span className="bg-ink text-paper rounded-full px-2 py-0.5 font-semibold">
             {file.subject}
@@ -56,14 +62,14 @@ export function FileCard({
       <div className="flex items-center gap-2 mt-4">
         <button
           onClick={() => onOpen(file)}
-          className="text-xs font-bold border-2 border-ink rounded-full px-3 py-1.5 bg-card hover:-translate-y-0.5 transition-transform"
+          className="text-xs font-bold border border-border rounded-full px-3 py-1.5 bg-card hover:-translate-y-0.5 transition-transform"
         >
           {file.file_path ? "فتح الملف" : "فتح الرابط"}
         </button>
         {onDelete ? (
           <button
             onClick={() => onDelete(file)}
-            className="text-xs font-bold border-2 border-ink rounded-full px-3 py-1.5 text-coral bg-card hover:-translate-y-0.5 transition-transform"
+            className="text-xs font-bold border border-border rounded-full px-3 py-1.5 text-coral bg-card hover:-translate-y-0.5 transition-transform"
           >
             حذف
           </button>

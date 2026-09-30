@@ -4,7 +4,14 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { AppHeader } from "@/components/AppHeader";
-import { ALLOWED_EXTENSIONS, GRADES, MAX_FILE_BYTES, SUBJECTS, formatSize } from "@/lib/constants";
+import {
+  ALLOWED_EXTENSIONS,
+  CATEGORIES,
+  GRADES,
+  MAX_FILE_BYTES,
+  SUBJECTS,
+  formatSize,
+} from "@/lib/constants";
 
 export const Route = createFileRoute("/upload")({
   head: () => ({
@@ -35,6 +42,7 @@ function UploadPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState<string>(SUBJECTS[0]);
+  const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [grade, setGrade] = useState<string>(GRADES[0]);
   const [videoUrl, setVideoUrl] = useState("");
   const [busy, setBusy] = useState(false);
@@ -99,6 +107,7 @@ function UploadPage() {
         title: title.trim().slice(0, 150),
         description: description.trim().slice(0, 500),
         subject,
+        category,
         grade,
         file_path: filePath,
         file_ext: fileExt,
@@ -117,7 +126,7 @@ function UploadPage() {
   }
 
   const inputClass =
-    "w-full bg-card border-2 border-ink rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
+    "w-full bg-card border border-border rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
 
   return (
     <div className="min-h-screen">
@@ -146,7 +155,7 @@ function UploadPage() {
                 dragging ? "bg-amber/25" : "bg-card/70 hover:bg-card"
               }`}
             >
-              <span className="inline-grid place-items-center w-14 h-14 rounded-full bg-amber border-2 border-ink text-2xl font-black mb-3">
+              <span className="inline-grid place-items-center w-14 h-14 rounded-full bg-amber border border-border text-2xl font-black mb-3">
                 ↓
               </span>
               <p className="font-display font-bold text-xl">
@@ -186,6 +195,17 @@ function UploadPage() {
                 placeholder="تمارين متدرجة مع مفتاح الإجابة"
               />
 
+              <label className="block text-xs font-bold">التصنيف</label>
+              <select
+                className={inputClass}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {CATEGORIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+
               <label className="block text-xs font-bold">المادة والصف</label>
               <div className="flex flex-col sm:flex-row gap-3">
                 <select
@@ -223,7 +243,7 @@ function UploadPage() {
                 <button
                   type="submit"
                   disabled={busy}
-                  className="bg-ink text-paper rounded-full px-6 py-3 font-bold border-2 border-ink pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
+                  className="bg-ink text-paper rounded-full px-6 py-3 font-bold border border-border pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
                 >
                   {busy ? "جارٍ الرفع…" : "ارفعي الآن"}
                 </button>

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { VisionMission } from "@/components/VisionMission";
 import { AppHeader } from "@/components/AppHeader";
 import { FileCard, type FileRow } from "@/components/FileCard";
 import { EXT_COLOR } from "@/lib/constants";
@@ -45,7 +46,7 @@ function LibraryPage() {
       setFetching(true);
       const { data, error } = await supabase
         .from("files")
-        .select("id,title,description,subject,grade,file_path,file_ext,file_size,video_url")
+        .select("id,title,description,subject,category,grade,file_path,file_ext,file_size,video_url")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
       if (!active) return;
@@ -112,12 +113,13 @@ function LibraryPage() {
     toast.success("تم الحذف.");
   }
 
-  const chip = "px-3 py-1.5 rounded-full bg-card border-2 border-ink font-semibold text-xs";
-  const chipOn = "px-3 py-1.5 rounded-full bg-ink text-paper border-2 border-ink font-semibold text-xs";
+  const chip = "px-3 py-1.5 rounded-full bg-card border border-border font-semibold text-xs";
+  const chipOn = "px-3 py-1.5 rounded-full bg-ink text-paper border border-border font-semibold text-xs";
 
   return (
     <div className="min-h-screen">
       <AppHeader />
+      <VisionMission />
       <section className="mx-auto max-w-[1200px] px-5 py-9">
         <div className="flex flex-wrap items-end gap-4 mb-7 rise">
           <h1 className="font-display font-black text-4xl tracking-tight">مكتبتي</h1>
@@ -131,7 +133,7 @@ function LibraryPage() {
 
         <div className="flex flex-col lg:flex-row gap-6">
           <aside className="w-full lg:w-60 shrink-0 space-y-6">
-            <div className="flex items-center gap-2 bg-card border-2 border-ink rounded-full px-3 py-2">
+            <div className="flex items-center gap-2 bg-card border border-border rounded-full px-3 py-2">
               <span className="text-muted-foreground">⌕</span>
               <input
                 className="bg-transparent outline-none w-full text-sm"
@@ -211,7 +213,7 @@ function LibraryPage() {
                 </p>
                 <Link
                   to="/upload"
-                  className="inline-block bg-ink text-paper rounded-full px-6 py-3 font-bold border-2 border-ink pop-amber"
+                  className="inline-block bg-ink text-paper rounded-full px-6 py-3 font-bold border border-border pop-amber"
                 >
                   ارفعي ملفًا
                 </Link>
