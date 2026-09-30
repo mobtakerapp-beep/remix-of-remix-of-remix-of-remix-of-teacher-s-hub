@@ -126,7 +126,7 @@ function UploadPage() {
   }
 
   const inputClass =
-    "w-full bg-card border-2 border-ink rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
+    "w-full bg-card border border-border rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber";
 
   return (
     <div className="min-h-screen">
@@ -155,7 +155,7 @@ function UploadPage() {
                 dragging ? "bg-amber/25" : "bg-card/70 hover:bg-card"
               }`}
             >
-              <span className="inline-grid place-items-center w-14 h-14 rounded-full bg-amber border-2 border-ink text-2xl font-black mb-3">
+              <span className="inline-grid place-items-center w-14 h-14 rounded-full bg-amber border border-border text-2xl font-black mb-3">
                 ↓
               </span>
               <p className="font-display font-bold text-xl">
@@ -243,7 +243,7 @@ function UploadPage() {
                 <button
                   type="submit"
                   disabled={busy}
-                  className="bg-ink text-paper rounded-full px-6 py-3 font-bold border-2 border-ink pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
+                  className="bg-ink text-paper rounded-full px-6 py-3 font-bold border border-border pop-amber transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
                 >
                   {busy ? "جارٍ الرفع…" : "ارفعي الآن"}
                 </button>

@@ -144,7 +144,7 @@ function AdminPage() {
           <form onSubmit={submitCode} className="card-ink pop-coral p-5 space-y-3">
             <label className="block text-xs font-bold">كود المدير</label>
             <input
-              className="w-full bg-card border-2 border-ink rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber"
+              className="w-full bg-card border border-border rounded-xl px-3.5 py-2.5 outline-none focus:ring-2 focus:ring-amber"
               value={code}
               maxLength={200}
               onChange={(e) => setCode(e.target.value)}
@@ -153,7 +153,7 @@ function AdminPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full bg-coral text-paper rounded-full px-6 py-3 font-bold border-2 border-ink pop-ink transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
+              className="w-full bg-coral text-paper rounded-full px-6 py-3 font-bold border border-border pop-ink transition-transform duration-150 hover:-translate-y-0.5 disabled:opacity-60"
             >
               {busy ? "جارٍ التحقق…" : "دخول"}
             </button>
@@ -184,14 +184,14 @@ function AdminPage() {
                   selected?.id === t.id ? "pop-amber" : ""
                 }`}
               >
-                <span className="w-11 h-11 rounded-full bg-coral border-2 border-ink grid place-items-center font-black text-paper">
+                <span className="w-11 h-11 rounded-full bg-coral border border-border grid place-items-center font-black text-paper">
                   {t.full_name.trim().charAt(0)}
                 </span>
                 <span>
                   <p className="font-bold">{t.full_name}</p>
                   <p className="text-[11px] text-muted-foreground">{t.count} ملفًا</p>
                 </span>
-                <span className="mr-auto font-black text-2xl bg-amber/20 border-2 border-ink rounded-xl px-3 py-1">
+                <span className="mr-auto font-black text-2xl bg-amber/20 border border-border rounded-xl px-3 py-1">
                   {t.count}
                 </span>
               </button>
