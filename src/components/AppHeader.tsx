@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { InstallAppButton } from "@/components/InstallAppButton";
 
 export function AppHeader() {
   const { user, isAdmin, fullName } = useAuth();
