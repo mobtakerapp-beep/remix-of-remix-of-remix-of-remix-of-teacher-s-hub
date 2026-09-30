@@ -11,7 +11,8 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
-import schoolBg from "@/assets/school-bg.jpg.asset.json";
+import schoolBgUrl from "@/assets/school-bg.jpg";
+const schoolBg = { url: schoolBgUrl };
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
