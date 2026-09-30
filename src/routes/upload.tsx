@@ -90,7 +90,7 @@ function UploadPage() {
         filePath = `${user.id}/${crypto.randomUUID()}.${fileExt}`;
         const { error } = await supabase.storage
           .from("teacher-files")
-          .upload(filePath, file, { contentType: file.type || undefined });
+          .upload(filePath, file, file.type ? { contentType: file.type } : undefined);
         if (error) throw error;
       }
 
