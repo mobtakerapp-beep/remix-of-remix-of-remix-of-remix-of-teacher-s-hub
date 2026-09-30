@@ -28,7 +28,7 @@ export function FileCard({
 
   return (
     <article
-      className={`card-ink p-4 ${shadow} transition-transform duration-200 hover:-translate-y-1`}
+      className={`card-ink p-4 ${shadow} transition-transform duration-200 hover:-translate-y-1 overflow-hidden`}
     >
       <div className="flex items-center justify-between mb-3">
         <span
@@ -38,7 +38,9 @@ export function FileCard({
         </span>
         <span className="text-[11px] text-muted-foreground">{formatSize(file.file_size)}</span>
       </div>
-      <h3 className="font-display font-bold text-lg leading-snug text-balance mb-2">{file.title}</h3>
+      <h3 className="font-display font-bold text-lg leading-snug mb-2 break-words [overflow-wrap:anywhere]">
+        {file.title}
+      </h3>
       {file.description ? (
         <p className="text-xs text-muted-foreground leading-relaxed text-pretty mb-4">
           {file.description}
