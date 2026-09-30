@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { InstallAppButton } from "@/components/InstallAppButton";
 
 export function AppHeader() {
   const { user, isAdmin, fullName } = useAuth();
@@ -42,6 +43,7 @@ export function AppHeader() {
         ) : null}
 
         <div className="mr-auto flex items-center gap-3 shrink-0">
+          <InstallAppButton />
           {user ? (
             <>
               <div className="hidden sm:flex items-center gap-2">
