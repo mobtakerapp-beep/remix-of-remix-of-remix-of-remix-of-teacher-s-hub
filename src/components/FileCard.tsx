@@ -5,6 +5,7 @@ export type FileRow = {
   title: string;
   description: string;
   subject: string;
+  category?: string;
   grade: string;
   file_path: string | null;
   file_ext: string | null;
@@ -44,6 +45,11 @@ export function FileCard({
         </p>
       ) : null}
       <div className="flex items-center gap-2 text-[11px] flex-wrap">
+        {file.category ? (
+          <span className="bg-accent/15 text-accent-foreground border border-accent/40 rounded-full px-2 py-0.5 font-semibold">
+            {file.category}
+          </span>
+        ) : null}
         {file.subject ? (
           <span className="bg-ink text-paper rounded-full px-2 py-0.5 font-semibold">
             {file.subject}

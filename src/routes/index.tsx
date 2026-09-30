@@ -45,7 +45,7 @@ function LibraryPage() {
       setFetching(true);
       const { data, error } = await supabase
         .from("files")
-        .select("id,title,description,subject,grade,file_path,file_ext,file_size,video_url")
+        .select("id,title,description,subject,category,grade,file_path,file_ext,file_size,video_url")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
       if (!active) return;

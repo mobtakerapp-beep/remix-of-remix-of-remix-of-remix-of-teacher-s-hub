@@ -4,7 +4,14 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { AppHeader } from "@/components/AppHeader";
-import { ALLOWED_EXTENSIONS, GRADES, MAX_FILE_BYTES, SUBJECTS, formatSize } from "@/lib/constants";
+import {
+  ALLOWED_EXTENSIONS,
+  CATEGORIES,
+  GRADES,
+  MAX_FILE_BYTES,
+  SUBJECTS,
+  formatSize,
+} from "@/lib/constants";
 
 export const Route = createFileRoute("/upload")({
   head: () => ({
@@ -35,6 +42,7 @@ function UploadPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState<string>(SUBJECTS[0]);
+  const [category, setCategory] = useState<string>(CATEGORIES[0]);
   const [grade, setGrade] = useState<string>(GRADES[0]);
   const [videoUrl, setVideoUrl] = useState("");
   const [busy, setBusy] = useState(false);
@@ -99,6 +107,7 @@ function UploadPage() {
         title: title.trim().slice(0, 150),
         description: description.trim().slice(0, 500),
         subject,
+        category,
         grade,
         file_path: filePath,
         file_ext: fileExt,
@@ -185,6 +194,17 @@ function UploadPage() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="تمارين متدرجة مع مفتاح الإجابة"
               />
+
+              <label className="block text-xs font-bold">التصنيف</label>
+              <select
+                className={inputClass}
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {CATEGORIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
 
               <label className="block text-xs font-bold">المادة والصف</label>
               <div className="flex flex-col sm:flex-row gap-3">
