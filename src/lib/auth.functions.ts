@@ -1,6 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { normalizeUsername, usernameToAuthEmail } from "@/lib/usernameAuth";
 
 export const createUsernameAccount = createServerFn({ method: "POST" })
@@ -13,6 +12,7 @@ export const createUsernameAccount = createServerFn({ method: "POST" })
       .parse(data),
   )
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const username = normalizeUsername(data.username);
     const email = usernameToAuthEmail(username);
 
