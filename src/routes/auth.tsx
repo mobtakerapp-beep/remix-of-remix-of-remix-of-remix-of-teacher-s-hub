@@ -6,6 +6,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { VisionMission } from "@/components/VisionMission";
 import { AppHeader } from "@/components/AppHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { createUsernameAccount } from "@/lib/auth.functions";
+import { usernameToAuthEmail } from "@/lib/usernameAuth";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -23,10 +25,9 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const [mode, setMode] = useState<"in" | "up">("in");
-  const [email, setEmail] = useState("");
+  const [mode, setMode] = useState<"in" | "up">("up");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
   const [busy, setBusy] = useState(false);
   const { session, loading } = useAuth();
   const navigate = useNavigate();
@@ -39,35 +40,48 @@ function AuthPage() {
     e.preventDefault();
     if (busy) return;
     setBusy(true);
+
     try {
+      const cleanUsername = username.trim();
+
+      if (cleanUsername.length < 2) {
+        toast.error("اكتبي اسم المستخدم.");
+        return;
+      }
+
+      if (password.length < 6) {
+        toast.error("كلمة المرور يجب ألا تقل عن ٦ أحرف.");
+        return;
+      }
+
+      const authEmail = usernameToAuthEmail(cleanUsername);
+
       if (mode === "up") {
-        if (fullName.trim().length < 2) {
-          toast.error("اكتبي اسمك الكامل.");
-          return;
-        }
-        if (password.length < 6) {
-          toast.error("كلمة المرور يجب ألا تقل عن ٦ أحرف.");
-          return;
-        }
-        const { data, error } = await supabase.auth.signUp({
-          email: email.trim(),
-          password,
-          options: {
-            emailRedirectTo: window.location.origin,
-            data: { full_name: fullName.trim() },
-          },
+        await createUsernameAccount({
+          data: { username: cleanUsername, password },
         });
+
+        const { error } = await supabase.auth.signInWithPassword({
+          email: authEmail,
+          password,
+        });
+
         if (error) throw error;
-        if (!data.session) {
-          toast.success("تم إنشاء الحساب. افتحي بريدك لتأكيد التسجيل.");
-        }
+        toast.success("تم إنشاء الحساب والدخول بنجاح.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
+          email: authEmail,
           password,
         });
-        if (error) throw error;
+
+        if (error) {
+          throw new Error("اسم المستخدم أو كلمة المرور غير صحيحة.");
+        }
+
+        toast.success("تم تسجيل الدخول.");
       }
+
+      void navigate({ to: "/" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "تعذّر إتمام العملية.");
     } finally {
@@ -101,28 +115,17 @@ function AuthPage() {
         </p>
 
         <form onSubmit={submit} className="card-ink pop-amber p-5 space-y-3">
-          {mode === "up" ? (
-            <>
-              <label className="block text-xs font-bold">الاسم الكامل</label>
-              <input
-                className={inputClass}
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                maxLength={80}
-                placeholder="أ. سارة"
-              />
-            </>
-          ) : null}
-
-          <label className="block text-xs font-bold">البريد الإلكتروني</label>
+          <label className="block text-xs font-bold">اسم المستخدم</label>
           <input
             className={inputClass}
-            type="email"
+            type="text"
             required
-            maxLength={255}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="teacher@school.com"
+            minLength={2}
+            maxLength={40}
+            autoComplete="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="اكتبي اسم المستخدم"
           />
 
           <label className="block text-xs font-bold">كلمة المرور</label>
@@ -130,7 +133,9 @@ function AuthPage() {
             className={inputClass}
             type="password"
             required
+            minLength={6}
             maxLength={72}
+            autoComplete={mode === "up" ? "new-password" : "current-password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
